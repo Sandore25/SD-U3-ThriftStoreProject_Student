@@ -54,31 +54,79 @@ const salesTax = [
 ];
 
 //! Classes
+class Store {
+    constructor(name, state) {
+        this.name = name;
+        this.state = state
+        this.inventory = [];
 
 
+    }
+
+    addItem(item) {
+        this.inventory.push(item);
+    }
+
+    sellItem(itemName, quantity) {
+        const item = this.inventory.find((item) => item.name === itemName);
+        if(!item) {
+            console.log(`Item ${itemName} not found in store ${this.name}.`);
+            return;
+    }
+    
+    item.quantity -= quantity;
+    console.log(`Sold ${quantity} ${itemName} from store ${this.name}.`);
+
+
+}
+} 
+//console.log(Store)
 //! CREATE STORES
 // Generate 3 different stores, each in a different state.
+const newToYou = new Store("New to You", Michigan);
+const trashToTreasure = new Store("Trash to Treasure", Ohio);
+const elisCloset = new Store("Eli's Closet", Illinois );
+
+console.log(newToYou);
 
 //! Inventory
-
+class Item {
+    constructor(name,upc,quantity) {
+        this.name = name;
+        this.upc = upc;
+        this.quantity = quantity;
+    }
+}
+const shirt = new Item('Shirt','UPC1',5)
+const pants = new Item('Pants','UPC1',10)
+const longSleeveShirt = new Item('Long Sleeve Shirt','UPC1',3)
+const shorts = new Item('Shorts','UPC1',2)
+const dressShirt = new Item('Dress Shirt','UPC1',4)
+const polo = new Item('Polo','UPC1',7)
 
 //! Stocking
-
 //* First Store
+new\ToYou.addItem(shirt);
+newToYou.addItem(pants);
 
 //* Second Store
+trashToTreasure.addItem(longSleeveShirt);
+trashToTreasure.addItem(shorts);
 
 //* Third Store
+elisCloset.addItem(dressShirt);
+elisCloset.addItem(polo);
 
 //! Selling
-
 //* First Store
+newToYou.sellItem("Shirt", 2);
 
 //* Second Store
-
+trashToTreasure.sellItem("Shorts", 3)
 //* Third Store
+elisCloset.sellItem("Polo", 8)
 
 //! Testing
-/* 
-    Simply console log each store to check the completed details.
-*/
+// console.log(newToYou);
+// console.log(trashToTreasure);
+// console.log(elisCloset);
