@@ -55,12 +55,16 @@ const salesTax = [
 
 //! Classes
 class Store {
-    constructor(name, state) {
+    constructor(name, state, tax) {
         this.name = name;
-        this.state = state
+        this.state = state;
+        this.salesTax = tax;
         this.inventory = [];
-
-
+        // this.balance = 100;
+        // this.expense = 0;
+        // this.profit = 0;
+        // this.paidTax = (salesTax * this.inventory[Item]);
+        
     }
 
     addItem(item) {
@@ -83,11 +87,13 @@ class Store {
 //console.log(Store)
 //! CREATE STORES
 // Generate 3 different stores, each in a different state.
-const newToYou = new Store("New to You", Michigan);
-const trashToTreasure = new Store("Trash to Treasure", Ohio);
-const elisCloset = new Store("Eli's Closet", Illinois );
+const newToYou = new Store("New to You",salesTax[22].state, salesTax[22].tax);
+const trashToTreasure = new Store("Trash to Treasure", salesTax[35].state, salesTax[35].tax);
+const elisCloset = new Store("Eli's Closet", salesTax[13].state, salesTax[13].tax );
 
-console.log(newToYou);
+// console.log(newToYou);
+// console.log(trashToTreasure);
+//console.log(elisCloset);
 
 //! Inventory
 class Item {
@@ -96,17 +102,18 @@ class Item {
         this.upc = upc;
         this.quantity = quantity;
     }
-}
-const shirt = new Item('Shirt','UPC1',5)
-const pants = new Item('Pants','UPC1',10)
-const longSleeveShirt = new Item('Long Sleeve Shirt','UPC1',3)
-const shorts = new Item('Shorts','UPC1',2)
-const dressShirt = new Item('Dress Shirt','UPC1',4)
-const polo = new Item('Polo','UPC1',7)
+};
+
+const shirt = new Item('Shirt','UPC1',5);
+const pants = new Item('Pants','UPC1',10);
+const longSleeveShirt = new Item('Long Sleeve Shirt','UPC1',3);
+const shorts = new Item('Shorts','UPC1',2);
+const dressShirt = new Item('Dress Shirt','UPC1',4);
+const polo = new Item('Polo','UPC1',7);
 
 //! Stocking
 //* First Store
-new\ToYou.addItem(shirt);
+newToYou.addItem(shirt);
 newToYou.addItem(pants);
 
 //* Second Store
@@ -127,6 +134,6 @@ trashToTreasure.sellItem("Shorts", 3)
 elisCloset.sellItem("Polo", 8)
 
 //! Testing
-// console.log(newToYou);
-// console.log(trashToTreasure);
-// console.log(elisCloset);
+ console.log(newToYou);
+ console.log(trashToTreasure);
+ console.log(elisCloset);
