@@ -60,30 +60,50 @@ class Store {
         this.state = state;
         this.salesTax = tax;
         this.inventory = [];
-        // this.balance = 100;
-        // this.expense = 0;
-        // this.profit = 0;
-        // this.paidTax = (salesTax * this.inventory[Item]);
+        this.balance = 100;
+        this.expense = 0;
+        this.profit = 0;
+        this.paidTax = (this.expense * this.salesTax);
         
     }
 
-    addItem(item) {
+    addItem(item, quantity, costPrice) {
         this.inventory.push(item);
+        if(this.inventory[item]) { this.inventory[item].quantity += quantity;
+        }else {
+        this.inventory[item] ={
+            quantity: quantity,
+            costPrice: costPrice
+        };
+        const expense = costPrice * quantity;
+        this.expense += expense;
+       };
+       console.log(`${quantity} ${item} added to ${this.name} inventory for $${costPrice}`);
     }
 
-    sellItem(itemName, quantity) {
-        const item = this.inventory.find((item) => item.name === itemName);
-        if(!item) {
-            console.log(`Item ${itemName} not found in store ${this.name}.`);
-            return;
+    sellItem(item, quantity, sellPrice) {
+        
+        if (!this.inventory[item] || this.inventory[item].quantity < quantity){
+            console.log(`Insufficient ${item} in inventory.`);
+        }else {
+            this.inventory[item].quantity -= quantity;
+            const profit = (sellPrice * quantity) - this.expense;
+            this.profit += profit;
+            console.log(`${this.name} sold ${quantity} ${item}. Profit: $${profit}`)
+        }
+        
     }
+
     
-    item.quantity -= quantity;
-    console.log(`Sold ${quantity} ${itemName} from store ${this.name}.`);
-
-
-}
 } 
+
+class Item {
+    constructor(name,price,quantity) {
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+    }
+};
 //console.log(Store)
 //! CREATE STORES
 // Generate 3 different stores, each in a different state.
@@ -96,44 +116,43 @@ const elisCloset = new Store("Eli's Closet", salesTax[13].state, salesTax[13].ta
 //console.log(elisCloset);
 
 //! Inventory
-class Item {
-    constructor(name,upc,quantity) {
-        this.name = name;
-        this.upc = upc;
-        this.quantity = quantity;
-    }
-};
 
-const shirt = new Item('Shirt','UPC1',5);
-const pants = new Item('Pants','UPC1',10);
-const longSleeveShirt = new Item('Long Sleeve Shirt','UPC1',3);
-const shorts = new Item('Shorts','UPC1',2);
-const dressShirt = new Item('Dress Shirt','UPC1',4);
-const polo = new Item('Polo','UPC1',7);
+
+const shirt = new Item('Shirt',2,15);
+const pants = new Item('Pants',3,10);
+const longSleeveShirt = new Item('Long Sleeve Shirt', 2 ,13);
+const shorts = new Item('Shorts', 4 , 15);
+const dressShirt = new Item('Dress Shirt', 4,13);
+const polo = new Item('Polo', 7, 17);
 
 //! Stocking
 //* First Store
-newToYou.addItem(shirt);
-newToYou.addItem(pants);
+newToYou.addItem("Shirt", 3, 1);
+newToYou.addItem('Pants',3,1);
+newToYou.addItem('Polo',2,1);
 
 //* Second Store
-trashToTreasure.addItem(longSleeveShirt);
-trashToTreasure.addItem(shorts);
+trashToTreasure.addItem("Shirt", 3, 1);
+trashToTreasure.addItem('Long Sleeve Shirt', 2 ,1);
+trashToTreasure.addItem('Shorts',5, 1);
 
 //* Third Store
-elisCloset.addItem(dressShirt);
-elisCloset.addItem(polo);
+elisCloset.addItem("Shirt", 3, 1);
+elisCloset.addItem('Dress Shirt', 4, 1);
+elisCloset.addItem('Polo', 7, 1);
 
 //! Selling
 //* First Store
-newToYou.sellItem("Shirt", 2);
+newToYou.sellItem("Shirt", 2, 4);
+newToYou.sellItem("Pants", 2, 6);
 
 //* Second Store
-trashToTreasure.sellItem("Shorts", 3)
+trashToTreasure.sellItem("Shorts", 4, 3)
 //* Third Store
-elisCloset.sellItem("Polo", 8)
+elisCloset.sellItem("Polo", 8, 4)
+elisCloset.sellItem("Dress Shirt", 3, 5)
 
 //! Testing
- console.log(newToYou);
- console.log(trashToTreasure);
- console.log(elisCloset);
+console.log(newToYou);
+console.log(trashToTreasure);
+console.log(elisCloset);
